@@ -2,33 +2,96 @@
 <html lang="en" translate="no">
 
 <head>
-    <title>AutumnVN</title>
+    <title>Didi Choto</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Hi! I'm AutumnVN, a dude from Vietnam :3">
+    <meta name="description" content="Hi! I'm Didi Choto, a dude from Argentina">
     <meta name="theme-color" content="#00a9ff">
-    <meta property="og:site_name" content="chino.pages.dev">
-    <meta property="og:image" content="https://chino.pages.dev/preview.png">
+    <meta property="og:site_name" content="Axeldev">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="google-site-verification" content="QnPzHT-3k8oi0acqMvSozJjSGyAgimpbAop5WpEQ_Oc">
-    <link rel="canonical" href="https://chino.pages.dev/">
     <link rel="stylesheet" href="/index.css">
     <noscript>
         <link rel="stylesheet" href="/noscript.css">
     </noscript>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const h1 = document.querySelector("header h1");
+            const text = h1.textContent;
+            h1.innerHTML = "";
+            for (let i = 0; i < text.length; i++) {
+                const span = document.createElement("span");
+                span.textContent = text[i];
+                span.style.animationDelay = `${i * 0.1}s`; // Ajusta el retraso de la animación para cada letra
+                h1.appendChild(span);
+            }
+        });
+    </script>
+    <link async rel="preload" as="style"
+    href="https://community.cloudflare.steamstatic.com/public/shared/css/shared_global.css"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://community.cloudflare.steamstatic.com/public/shared/css/shared_global.css">
+  </noscript>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer async>
+    $(function () {
+      let searchParams = new URLSearchParams(window.location.search);
+      let corsHost = "https://steam-miniprofile-cors.glitch.me/"
+      let steamId = searchParams.get('accountId') ? searchParams.get('accountId') : '76561199244848585';
+      let interactive = searchParams.get('interactive') ? searchParams.get('interactive') : false;
+      let vanityId = searchParams.get('vanityId') ? searchParams.get('vanityId') : '';
+      let language = searchParams.get('lang') ? searchParams.get('lang') : 'english';
+      let corsURL = `${corsHost}https%3A%2F%2Fsteamcommunity.com%2Fminiprofile%2F${steamId}?l=${language}`;
+      let steamURL = `https://steamcommunity.com/id/${vanityId}`;
+      
+      if(steamId === '76561199244848585') {
+        steamId = '76561199244848585';
+      }
+
+      $.get(corsURL, function (data) {
+        $("#includedContent").html(data).hide();
+        if ($("#includedContent").children().text().length != 0) {
+          $(".default").fadeOut("fast", function () {
+            $(".default").replaceWith(data);
+            $(".default").fadeIn("fast");
+          });
+
+          window.parent.postMessage(
+            {
+              state:"loaded"
+            }, {
+            targetOrigin: '*',
+          })
+        }
+        
+        if(interactive && vanityId) {
+          document.body.style.cursor = "pointer";
+          $(document).on('click', 'div.miniprofile_container', function(e){ 
+              e.preventDefault(); 
+              var url = $(this).attr('href'); 
+              window.open(steamURL, '_blank');
+          });
+        }
+      });
+
+    });
+  </script>
 </head>
 
 <body style="--scroll: 0;">
-    <div id="bg"></div>
+    <video id="video-background" autoplay loop muted>
+        <source src="video.mp4" type="video/mp4">
+    </video>
 
     <header>
-        <img src="/avatar.webp" height="200" width="200" alt="avatar">
+        <img src="https://avatars.githubusercontent.com/u/114163660?v=4" height="200" width="200" alt="avatar">
         <section>
             <h1>
-                <svg viewBox="0 0 660 120">
-                    <title>AutumnVN</title>
-                </svg>
+                Didi Choto
             </h1>
-            <p>Hi! I'm AutumnVN, a dude from Vietnam. Nice to meet you :3</p>
+            <p>Hi! I'm Didi Choto, a dude from Argentina. Nice to meet you </p>
         </section>
     </header>
 
@@ -41,7 +104,7 @@
     <div id="main">
         <main>
             <div class="widget">
-                <a href="https://github.com/AutumnVN">
+                <a href="https://github.com/AxelMaidana">
                     <div class="content">
                         <div class="icon" style="background-color: #000;">
                             <svg fill="currentColor" viewBox="0 0 496 512">
@@ -50,14 +113,14 @@
                         </div>
                         <div class="meta">
                             <b>GitHub</b>
-                            <p>AutumnVN</p>
+                            <p>Axel Maidana</p>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="widget">
-                <a href="https://discord.com/users/393694671383166998">
+                <a href="https://discord.com/users/930302989120446494">
                     <div class="content">
                         <div class="icon" style="background-color: #56f;">
                             <svg fill="currentColor" viewBox="0 0 640 512">
@@ -66,14 +129,14 @@
                         </div>
                         <div class="meta">
                             <b>Discord</b>
-                            <p>autumnvn</p>
+                            <p>Axsl</p>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="widget">
-                <a href="https://www.facebook.com/autumnvnchino">
+                <a href="https://www.facebook.com/axelmaidana">
                     <div class="content">
                         <div class="icon" style="background-color: #17f; --size: 100%;">
                             <svg fill="currentColor" viewBox="1 1 21 21">
@@ -82,14 +145,14 @@
                         </div>
                         <div class="meta">
                             <b>Facebook</b>
-                            <p>autumnvnchino</p>
+                            <p>Axel Maidana</p>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="widget">
-                <a href="https://www.youtube.com/@AutumnVN">
+                <a href="https://www.youtube.com/channel/UC5ADrhl9aVlwNXdI5R10gww">
                     <div class="content">
                         <div class="icon" style="background-color: #f00; --size: 90%;">
                             <svg fill="currentColor" viewBox="-35 -41 305 247">
@@ -98,56 +161,52 @@
                         </div>
                         <div class="meta">
                             <b>Youtube</b>
-                            <p>AutumnVN</p>
+                            <p>Axel Maidana</p>
                         </div>
                     </div>
                 </a>
             </div>
 
-            <div class="widget js" style="--columns: 4; height: 178px;">
-                <div id="github">
-                    <div class="line">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694v.001z" />
-                        </svg>
-                        <div class="title">Total Stars Earned:</div>
-                        <div class="stat">-</div>
-                    </div>
-                    <div class="line">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M5 3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.122a2.25 2.25 0 1 0-1.5 0v.878A2.25 2.25 0 0 0 5.75 8.5h1.5v2.128a2.251 2.251 0 1 0 1.5 0V8.5h1.5a2.25 2.25 0 0 0 2.25-2.25v-.878a2.25 2.25 0 1 0-1.5 0v.878a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 5 6.25v-.878zm3.75 7.378a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm3-8.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z" />
-                        </svg>
-                        <div class="title">Total Forks Earned:</div>
-                        <div class="stat">-</div>
-                    </div>
-                    <div class="line">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1.643 3.143.427 1.927A.25.25 0 0 0 0 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 0 0 .177-.427L2.715 4.215a6.5 6.5 0 1 1-1.18 4.458.75.75 0 1 0-1.493.154 8.001 8.001 0 1 0 1.6-5.684zM7.75 4a.75.75 0 0 1 .75.75v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.75.75 0 0 1 7 8.25v-3.5A.75.75 0 0 1 7.75 4z" />
-                        </svg>
-                        <div class="title">Total Commits (2023):</div>
-                        <div class="stat">-</div>
-                    </div>
-                    <div class="line">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M7.177 3.073 9.573.677A.25.25 0 0 1 10 .854v4.792a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354zM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm-2.25.75a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25zM11 2.5h-1V4h1a1 1 0 0 1 1 1v5.628a2.251 2.251 0 1 0 1.5 0V5A2.5 2.5 0 0 0 11 2.5zm1 10.25a.75.75 0 1 1 1.5 0 .75.75 0 0 1-1.5 0zM3.75 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5z" />
-                        </svg>
-                        <div class="title">Total PRs:</div>
-                        <div class="stat">-</div>
-                    </div>
-                    <div class="line">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm9 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-.25-6.25a.75.75 0 0 0-1.5 0v3.5a.75.75 0 0 0 1.5 0v-3.5z" />
-                        </svg>
-                        <div class="title">Total Issues:</div>
-                        <div class="stat">-</div>
-                    </div>
-                    <div class="line">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 1 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 0 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 0 1 1-1h8zM5 12.25v3.25a.25.25 0 0 0 .4.2l1.45-1.087a.25.25 0 0 1 .3 0L8.6 15.7a.25.25 0 0 0 .4-.2v-3.25a.25.25 0 0 0-.25-.25h-3.5a.25.25 0 0 0-.25.25z" />
-                        </svg>
-                        <div class="title">Contributed to (last year):</div>
-                        <div class="stat">-</div>
-                    </div>
+            <div class="widgett js" style="--columns: 4; height: 210px; ">
+                <div id="discordMiniPerfil" style="display: flex; align-items: center; justify-content: center; border-radius: 24px;">
+                    <div id="includedContent"></div>
+  <!-- default miniprofile while waiting for the real one to load -->
+  <!-- cache to help with load time -->
+  <div class="miniprofile_container default">
+    <!-- Background -->
+    <div class="miniprofile_background">
+      <img class="miniprofile_backgroundblur"
+        src="https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb.jpg">
+    </div>
+    <div class="miniprofile_playersection ">
+      <!-- Player avatar/name stuff -->
+      <div class="playersection_avatar border_color_offline">
+        <img src="https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg"
+          srcset="https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg 1x, https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg 2x">
+      </div>
+      <div class="player_content">
+        <span class="persona offline">Loading</span>
+        <span class="friend_status_offline">Offline</span>
+      </div>
+    </div>
+    <div class="miniprofile_detailssection  not_in_game miniprofile_backdrop">
+      <div class="miniprofile_featuredcontainer">
+        <img
+          src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/206440/67e23690ce7aad7e097d828463fb0adf4932a5ab.png"
+          class="badge_icon">
+        <div class="description">
+          <div class="name">Unknown</div>
+          <div class="xp">? XP</div>
+        </div>
+      </div>
+      <div class="miniprofile_featuredcontainer">
+        <div class="friendPlayerLevel lvl_0"><span class="friendPlayerLevelNum">?</span></div>
+        <div class="description">
+          <div class="name">Steam Level</div>
+        </div>
+      </div>
+    </div>
+  </div>
                 </div>
             </div>
 
@@ -155,7 +214,7 @@
                 <div id="discord">
                     <div class="content">
                         <div class="icon">
-                            <img src="/avatar.webp" alt="avatar" draggable="false">
+                            <img src="/avatar.jpg" alt="avatar" draggable="false">
                         </div>
                         <div class="meta">
                             <b id="name"></b>
@@ -193,7 +252,7 @@
                     <div>
                         <div class="date">
                             <b id="date"></b>
-                            <span>ICT</span>
+                            <span>UTC</span>
                         </div>
                         <div class="time">
                             <span id="hour"></span><span>:</span><span id="minute"></span><span>:</span><span id="second"></span>
@@ -207,13 +266,13 @@
             </div>
 
             <div class="widget" style="--columns: 4; --rows: 4; --m-columns: 4; --m-rows: 2;">
-                <a href="/chino" aria-label="Chino Kafuu">
+                <a href="/berserk.jpg" aria-label="Didi Choto">
                     <div class="image" style="--bg: var(--background); background-size: cover;"></div>
                 </a>
             </div>
 
             <div class="widget" style="--columns: 4; --rows: 1;">
-                <a href="mailto:autumnvnchino@gmail.com">
+                <a href="mailto:maidana.axel2003@gmail.com">
                     <div class="content">
                         <div class="icon" style="background-color: #48d; --size: 60%;">
                             <svg fill="currentColor" viewBox="0 0 24 24">
@@ -222,20 +281,18 @@
                         </div>
                         <div class="meta">
                             <b>Email</b>
-                            <p>autumnvnchino@gmail.com</p>
+                            <p>maidana.axel2003@gmail.com</p>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="widget" style="--columns: 4; --rows: 1;">
-                <a href="#" style="padding: 10px; background-color: #000;" aria-label="Visitor Counter">
-                    <div class="image" style="--bg: url(/count);"></div>
-                </a>
+                <img src="eyes.jpeg" alt="Banner" class="banner-img">
             </div>
 
             <div class="widget">
-                <a href="https://twitter.com/autumnvnchino">
+                <a href="https://x.com/AxelMai10490610">
                     <div class="content">
                         <div class="icon" style="background-color: #19f; --size: 60%;">
                             <svg fill="currentColor" viewBox="0 0 248 204">
@@ -244,14 +301,14 @@
                         </div>
                         <div class="meta">
                             <b>Twitter</b>
-                            <p>autumnvnchino</p>
+                            <p>axelmaidana</p>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="widget">
-                <a href="https://osu.ppy.sh/users/26086345">
+                <a href="https://osu.ppy.sh/users/17302146">
                     <div class="content">
                         <div class="icon" style="background-color: #f6a;">
                             <svg fill="currentColor" viewBox="0 0 24 24">
@@ -260,39 +317,40 @@
                         </div>
                         <div class="meta">
                             <b>osu!</b>
-                            <p>AutumnVN</p>
+                            <p>Zhun Depresivo</p>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="widget" style="--columns: 4; --rows: 1;">
-                <a href="/skin/Chino.osk">
+                <a href="https://steamcommunity.com/profiles/76561199244848585/">
                     <div class="content">
-                        <div class="icon" style="background-color: #f6a;">
-                            <svg fill="currentColor" viewBox="0 0 612 612">
-                                <path d="M306 0C137 0 0 137 0 306s137 306 306 306 306-137 306-306S475 0 306 0Zm0 542C176 542 70 436 70 306S176 70 306 70s236 106 236 236-106 236-236 236Zm0-402c-92 0-166 74-166 166s74 166 166 166 166-74 166-166-74-166-166-166Z"></path>
-                            </svg>
+                        <div class="icon" style="background-color: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-steam" viewBox="0 0 16 16">
+                                <path d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.2 2.2 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.22 2.22 0 0 1-1.312-1.568L.33 10.333Z"/>
+                                <path d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.7 1.7 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027m2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048"/>
+                              </svg>
                         </div>
                         <div class="meta">
-                            <b>Chino Kafuu osu! skin</b>
-                            <p>Gotchuumon wa Usagi desu ka?</p>
+                            <b>Steam </b>
+                            <p>didi choto</p>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="widget" style="--columns: 4; --rows: 1;">
-                <a href="/skin/Mahiru.osk">
+                <a href="https://valorant.op.gg/profile/Fáke%20taxi-LAS">
                     <div class="content">
-                        <div class="icon" style="background-color: #f6a;">
-                            <svg fill="currentColor" viewBox="0 0 612 612">
-                                <path d="M306 0C137 0 0 137 0 306s137 306 306 306 306-137 306-306S475 0 306 0Zm0 542C176 542 70 436 70 306S176 70 306 70s236 106 236 236-106 236-236 236Zm0-402c-92 0-166 74-166 166s74 166 166 166 166-74 166-166-74-166-166-166Z"></path>
-                            </svg>
+                        <div class="icon" style="background-color: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
+                                <circle cx="24" cy="24" r="20" fill="#d32f2f"></circle><polygon fill="#fff" points="25.891,13.176 12.584,19.462 14.642,28.935 17.356,28.935 16.887,22.159 17.304,22.03 18.936,28.935 21.756,28.935 21.652,20.681 22.068,20.552 23.495,28.935 26.481,28.935 27.185,18.965 27.601,18.835 28.34,28.935 32.288,28.935 33.678,15.07"></polygon><polygon fill="#fff" points="23.612,32.813 22.628,30.278 32.118,30.766 31.711,34.824"></polygon>
+                                </svg>
                         </div>
                         <div class="meta">
-                            <b>Mahiru Shiina osu! skin</b>
-                            <p>Otonari no Tenshi-sama</p>
+                            <b>Riot </b>
+                            <p>Fáke taxi</p>
                         </div>
                     </div>
                 </a>
@@ -300,135 +358,48 @@
         </main>
 
         <aside>
-            <div class="project">
-                <a href="https://github.com/AutumnVN/chino.pages.dev">
-                    <b>AutumnVN/chino.pages.dev</b>
-                    <p>My cute website</p>
-                    <div class="meta">
-                        <div>
-                            <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-                                <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25"></path>
-                            </svg>
-                            <span class="star">-</span>
-                        </div>
-                        <div>
-                            <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-                                <path d="M5 5.372a2.25 2.25 0 1 0-1.5 0v.878A2.25 2.25 0 0 0 5.75 8.5h1.5v2.128a2.251 2.251 0 1 0 1.5 0V8.5h1.5a2.25 2.25 0 0 0 2.25-2.25v-.878a2.25 2.25 0 1 0-1.5 0v.878a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 5 6.25v-.878"></path>
-                            </svg>
-                            <span class="fork">-</span>
-                        </div>
-                        <div class="lang">
-                            <div class="color" style="background-color: #e42;"></div>
-                            HTML
+                <div class="profile">
+                    <div class="banner">
+                        <img src="gif.gif" alt="Banner" class="banner-img">
+                        <div class="avatar-section">
+                            <img src="avatar.png" alt="Avatar" class="avatar">
+                            <div class="status online"></div>
                         </div>
                     </div>
-                </a>
-            </div>
-
-            <div class="project">
-                <a href="https://github.com/AutumnVN/autumn">
-                    <b>AutumnVN/autumn</b>
-                    <p>My client-side Minecraft Fabric mod</p>
-                    <div class="meta">
-                        <div>
-                            <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-                                <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25"></path>
-                            </svg>
-                            <span class="star">-</span>
+                    <div class="user-info">
+                        <h2>Axsl </h2>
+                        <div class="name-badge-section">
+                            <p>axsl</p>
+                            <div class="badge-section">
+                                <svg class="badge" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="140" viewBox="0 0 24 24" width="140"><path d="m12 3.29999-7.54004 4.35v8.70001l7.54004 4.36 7.54-4.36v-8.70001zm4.93 11.55001-4.93 2.84-4.92004-2.84v-5.69001l4.92004-2.85 4.93 2.85z" fill="#ff6bfa"/><g fill="#ffdef9"><path d="m15.6901 8.44-8.62003 4.98v-4.27l4.92003-2.84z"/><path d="m16.9301 9.15002v1.51998l-8.53002 4.94-1.32-.77z"/><path d="m9.62012 16.31 7.30998-4.22v2.75l-4.94 2.86z"/></g><path d="m12 3.28998v3.02l4.93 2.84 2.61-1.5z" fill="#ffb0ff"/><path d="m7.06996 14.85-2.61 1.5 7.54004 4.36v-3.02z" fill="#e34bd1"/><path d="m16.9301 9.15-1.24-.71-8.62003 4.98v1.43z" fill="#fff"/><path d="m16.9299 10.67v1.42l-7.31 4.22-1.22-.7z" fill="#fff"/></svg>
+                                <svg class="badge" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="140" viewBox="0 0 24 24" width="140"><path clip-rule="evenodd" d="m5.01502 4h13.97008c.1187 0 .215.09992.215.22305v9.97865c0 .0697-.0312.1343-.0837.1767l-6.985 5.5752c-.0389.0313-.0847.0464-.1314.0464-.0466 0-.0924-.0151-.1313-.0464l-6.985-5.5752c-.05252-.0424-.08365-.107-.08365-.1767v-9.97865c0-.12313.0963-.22305.21497-.22305zm7.82148 7.0972 4.1275-2.71296c.1039-.06863.2299.04542.1725.15644l-1.7114 3.36192c-.0403.0807.0182.1756.1079.1756h1.0246c.118 0 .1664.1504.0706.219l-4.6267 3.3175c-.0414.0303-.0978.0303-.1402 0l-4.6267-3.3175c-.0948-.0686-.04639-.219.07059-.219h1.02356c.09076 0 .14925-.0949.10791-.1756l-1.71132-3.36293c-.05648-.11001.06958-.22305.17345-.15543l4.12851 2.71296c.0716.0474.1291.112.1674.1887l.6293 1.2636c.0444.0888.1714.0888.2158 0l.6293-1.2636c.0383-.0767.0958-.1423.1674-.1887z" fill="#9c84ef" fill-rule="evenodd"/></svg>
+                                <svg class="badge" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="140" viewBox="0 0 24 24" width="140"><path d="m21.58 11.4-4.28-7.39-.35-.6h-9.91l-.35.6-4.27 7.39-.35.6.35.6 4.27 7.39.35.6h9.92l.35-.6 4.28-7.39.35-.6zm-13.07-1.03-1.63 1.63 1.63 1.63v2.73l-4.36-4.36 4.37-4.37v2.74zm3.12 6.93-2.04-.63 3.1-9.98 2.04.64zm3.86-.93v-2.73l1.63-1.64-1.63-1.63v-2.74l4.36 4.37z" fill="#3e70dd"/></svg>
+                            </div>
                         </div>
-                        <div>
-                            <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-                                <path d="M5 5.372a2.25 2.25 0 1 0-1.5 0v.878A2.25 2.25 0 0 0 5.75 8.5h1.5v2.128a2.251 2.251 0 1 0 1.5 0V8.5h1.5a2.25 2.25 0 0 0 2.25-2.25v-.878a2.25 2.25 0 1 0-1.5 0v.878a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 5 6.25v-.878"></path>
-                            </svg>
-                            <span class="fork">-</span>
+                            
+                        
+                        <div class="activity">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="name">didi choto.exe</span>
+                            <span class="icons">
+                                <span class="minimize">—</span>
+                                <span class="close">❐</span>
+                                <span class="close">✖</span>
+                            </span>
                         </div>
-                        <div class="lang">
-                            <div class="color" style="background-color: #b71;"></div>
-                            Java
-                        </div>
+                        <div class="bio">...</div>
+                        <div href="#" class="view-bio">Ver biografía completa</div>
                     </div>
-                </a>
-            </div>
-
-            <div class="project">
-                <a href="https://github.com/AutumnVN/highlight">
-                    <b>AutumnVN/highlight</b>
-                    <p>Highlight & beautify raw code text extension</p>
-                    <div class="meta">
-                        <div>
-                            <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-                                <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25"></path>
-                            </svg>
-                            <span class="star">-</span>
-                        </div>
-                        <div>
-                            <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-                                <path d="M5 5.372a2.25 2.25 0 1 0-1.5 0v.878A2.25 2.25 0 0 0 5.75 8.5h1.5v2.128a2.251 2.251 0 1 0 1.5 0V8.5h1.5a2.25 2.25 0 0 0 2.25-2.25v-.878a2.25 2.25 0 1 0-1.5 0v.878a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 5 6.25v-.878"></path>
-                            </svg>
-                            <span class="fork">-</span>
-                        </div>
-                        <div class="lang">
-                            <div class="color" style="background-color: #fe5;"></div>
-                            JavaScript
-                        </div>
+                    <div class="actions">
+                        <button class="online"><span class="circle green"></span> En línea</button>
                     </div>
-                </a>
+                </div>
             </div>
-
-            <div class="project">
-                <a href="https://github.com/AutumnVN/bot">
-                    <b>AutumnVN/bot</b>
-                    <p>My Discord bot for random thing I want</p>
-                    <div class="meta">
-                        <div>
-                            <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-                                <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25"></path>
-                            </svg>
-                            <span class="star">-</span>
-                        </div>
-                        <div>
-                            <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-                                <path d="M5 5.372a2.25 2.25 0 1 0-1.5 0v.878A2.25 2.25 0 0 0 5.75 8.5h1.5v2.128a2.251 2.251 0 1 0 1.5 0V8.5h1.5a2.25 2.25 0 0 0 2.25-2.25v-.878a2.25 2.25 0 1 0-1.5 0v.878a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 5 6.25v-.878"></path>
-                            </svg>
-                            <span class="fork">-</span>
-                        </div>
-                        <div class="lang">
-                            <div class="color" style="background-color: #37c;"></div>
-                            TypeScript
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="project">
-                <a href="https://github.com/Vendicated/Vencord">
-                    <b>Vendicated/Vencord</b>
-                    <p>The cutest Discord client mod</p>
-                    <div class="meta">
-                        <div>
-                            <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-                                <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25"></path>
-                            </svg>
-                            <span class="star">-</span>
-                        </div>
-                        <div>
-                            <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-                                <path d="M5 5.372a2.25 2.25 0 1 0-1.5 0v.878A2.25 2.25 0 0 0 5.75 8.5h1.5v2.128a2.251 2.251 0 1 0 1.5 0V8.5h1.5a2.25 2.25 0 0 0 2.25-2.25v-.878a2.25 2.25 0 1 0-1.5 0v.878a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 5 6.25v-.878"></path>
-                            </svg>
-                            <span class="fork">-</span>
-                        </div>
-                        <div class="lang">
-                            <div class="color" style="background-color: #37c;"></div>
-                            TypeScript
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </aside>
-    </div>
 
     <footer>
-        <p><span>read if cute</span> • <a href="https://github.com/AutumnVN/chino.pages.dev">source code</a></p>
+        <p><span>Code is life</span> • <a href="https://github.com/AxelMaidana">Axel Maidana</a></p>
     </footer>
 
     <script defer src="/index.js"></script>

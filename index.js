@@ -3,17 +3,19 @@
 
 const bg = document.querySelector('#bg');
 
-addEventListener('touchstart', () => bg.style.setProperty('--multiplier', '0'));
+// Elimina el evento touchstart, ya que solo nos enfocaremos en el movimiento del cursor
 addEventListener('mousemove', ({ clientX, clientY }) => {
-    bg.style.setProperty('--tx', `${20 * (clientX - innerWidth / 2) / innerWidth}px`);
-    bg.style.setProperty('--ty', `${20 * (clientY - innerHeight / 2) / innerHeight}px`);
-});
+    const centerX = innerWidth / 2;
+    const centerY = innerHeight / 2;
+    const multiplier = 20;
 
-['mouseenter', 'mouseleave'].forEach(e => document.addEventListener(e, () => {
-    if (e === 'mouseleave') bg.removeAttribute('style');
-    bg.style.transition = 'transform .1s linear';
-    setTimeout(() => bg.style.transition = '', 100);
-}));
+    // Calcula la posición relativa del cursor respecto al centro de la ventana
+    const tx = (clientX - centerX) / centerX * multiplier;
+    const ty = (clientY - centerY) / centerY * multiplier;
+
+    // Aplica la transformación al fondo
+    bg.style.transform = `translate(${tx}px, ${ty}px)`;
+});
 
 document.querySelector('#arrow svg').addEventListener('click', () => {
     const start = performance.now();
@@ -58,18 +60,18 @@ const map = new Map();
     const date = new Date();
     const time = date.getTime();
     const { year, month, day, hour, minute, second } = myTime();
-    const hourOff = -date.getTimezoneOffset() / 60;
-    const minuteOff = new Date(time - time % 1000 - hourOff * 60 * 60 * 1000);
-    const tzOff = (new Date(year, month - 1, day, hour, minute, second) - minuteOff) / 1000 / 60 / 60;
-    const tzDiff = tzOff - hourOff;
+    const localOffset = -date.getTimezoneOffset() / 60; // Offset local en horas desde UTC
+    const targetTime = new Date(time - time % 1000 - localOffset * 60 * 60 * 1000);
+    const targetOffset = (new Date(year, month - 1, day, hour, minute, second) - targetTime) / 1000 / 60 / 60;
+    const tzDiff = targetOffset - localOffset;
 
     update('#hour-hand', `rotate(${hour % 12 / 12 * 360 + minute / 60 * 30 + second / 60 / 60 * 30}deg)`);
     update('#minute-hand', `rotate(${minute / 60 * 360 + second / 60 * 6}deg)`);
-    update('#second-hand', `rotate(${360 * Math.floor((time - visit) / 60 / 1000) + second / 60 * 360}deg)`);
-    update('#date', new Date(time + tzDiff * 60 * 60 * 1000).toLocaleDateString());
+    update('#second-hand', `rotate(${360 * Math.floor((time - visit) / 60 / 1000) + second / 60 * 360}deg)`); // Ajusta esta línea según lo que necesites
+    update('#date', new Date(time + tzDiff * 60 * 60 * 1000).toLocaleDateString('en-US', { timeZone: 'America/Argentina/Buenos_Aires' })); // Ajusta la zona horaria aquí
     ['hour', 'minute', 'second'].forEach(u => update(`#${u}`, eval(u).toString().padStart(2, '0')));
     update('#timezone-diff', tzDiff === 0 ? 'same time' : (tzDiff > 0 ? `${format(tzDiff)} ahead` : `${format(-tzDiff)} behind`));
-    update('#utc-offset', ` / UTC ${(tzOff >= 0 ? '+' : '')}${Math.floor(tzOff)}:${(tzOff % 1 * 60).toString().padStart(2, '0')}`);
+    update('#utc-offset', ` / UTC ${(targetOffset >= 0 ? '+' : '')}${Math.floor(targetOffset)}:${(targetOffset % 1 * 60).toString().padStart(2, '0')}`);
 
     setRpcTimestamp(map.get('timestamp'));
 
@@ -77,7 +79,7 @@ const map = new Map();
 
     function myTime() {
         const obj = {};
-        const options = { timeZone: 'Asia/Ho_Chi_Minh', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false, day: 'numeric', month: 'numeric', year: 'numeric' };
+        const options = { timeZone: 'America/Argentina/Buenos_Aires', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false, day: 'numeric', month: 'numeric', year: 'numeric' };
         new Intl.DateTimeFormat([], options).formatToParts(new Date()).forEach(({ type, value }) => obj[type] = +value);
         return obj;
     };
@@ -90,12 +92,13 @@ const map = new Map();
     }
 }();
 
+
 !function lanyard() {
     const ActivityType = ['Playing', 'Streaming to', 'Listening to', 'Watching', 'Custom status', 'Competing in'];
     const StatusColor = { online: '#4b8', idle: '#fa1', dnd: '#f44', offline: '#778' };
     const ws = new WebSocket('wss://api.lanyard.rest/socket');
 
-    ws.addEventListener('open', () => ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: '393694671383166998' } })));
+    ws.addEventListener('open', () => ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: '383000329782034453' } })));
     ws.addEventListener('error', () => ws.close());
     ws.addEventListener('close', () => setTimeout(lanyard, 1000));
 

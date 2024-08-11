@@ -1,5 +1,5 @@
 :root {
-    --background: image-set(url('/bg.avif') type('image/avif'), url('/bg.webp') type('image/webp'));
+    --background: image-set(url('video.mp4') type('video/mp4'), url('berserk.jpg') type('image/jpeg'));
     font-weight: 500;
     line-height: 1.5;
     font-family: Inter, system-ui, sans-serif;
@@ -17,14 +17,15 @@ body {
     }
 }
 
-#bg {
-    --multiplier: clamp(0, calc(-5 * var(--scroll, 0) + 1.5), 1);
+#video-background {
     position: fixed;
-    transform: translate(calc(var(--tx, 0) * var(--multiplier, 1)), calc(var(--ty, 0) * var(--multiplier, 1)));
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background) center/cover no-repeat;
+    object-fit: cover;
     z-index: -1;
-    filter: blur(clamp(0px, calc(50px * var(--scroll, 0) + -5px), 10px)) brightness(clamp(.7, calc(-.5 * var(--scroll, 0) + .85), .8));
-    inset: -30px;
-    background: #9af var(--background) center/cover no-repeat;
 }
 
 header {
@@ -80,11 +81,62 @@ header section {
     gap: 20px;
 }
 
-header svg {
-    -webkit-mask-image:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 550 100"><style>@keyframes dash{0%{stroke-dashoffset:727px;}to{stroke-dashoffset:0;};}@keyframes stroke-width{0%{stroke-width:3px;}to{stroke-width:12px;};}@keyframes fade{0%{opacity:0;}to{opacity:1;};}path{fill:none;stroke:%23fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px;stroke-dasharray:727px;stroke-dashoffset:727px;animation:dash 1s cubic-bezier(.8,0,.2,1) var(--delay) forwards,stroke-width 1s cubic-bezier(.8,0,.2,1) calc(var(--delay) + .5s) forwards,fade .2s linear calc(var(--delay) + 0s) forwards;}</style><path d="M0 73.81 33.2.01l33.3 73.8m-54-20.7h41.6" style="--delay:0.3s"/><path d="M82 28.71v24.6q0 6.5 2.55 10.85t6.9 6.5q4.35 2.15 9.85 2.15 5.4 0 9.7-2.1 4.3-2.1 6.8-5.65 2.5-3.55 2.5-8.05v-28.3" style="--delay:0.5s"/><path d="M154 9.11v49.8q0 5.8 3.6 9.45 3.6 3.65 9.3 3.65h2.2m-29-43.3h29.1" style="--delay:0.7s"/><path d="M190 28.71v24.6q0 6.5 2.55 10.85t6.9 6.5q4.35 2.15 9.85 2.15 5.4 0 9.7-2.1 4.3-2.1 6.8-5.65 2.5-3.55 2.5-8.05v-28.3" style="--delay:0.9s"/><path d="M251 28.71v46.4-30.6q0-7 4.4-11.4t11.3-4.4q6.5 0 10.55 4.9 4.05 4.9 4.05 12.6v28.9-30.6q0-7 4.1-11.4 4.7-4.4 11.3-4.4 6.8 0 10.55 4.9 4.35 4.9 4.05 12.6l.3 28.9" style="--delay:1.1s"/><path d="M334 28.71v46.4-30.6q0-4.5 2.5-8.1 2.5-3.6 6.8-5.65 4.3-2.05 9.7-2.05 5.5 0 9.85 2.15t6.9 6.45q2.55 4.3 2.55 10.9v26.9" style="--delay:1.3s"/><path d="m388 .01 31.8 78.1L452 .01" style="--delay:1.5s"/><path d="M475 78.11V.01l56.1 78.1V.01" style="--delay:1.7s"/></svg>');
-    backdrop-filter: saturate(2) brightness(2.5) blur(12px);
-    width: min(500px, 100%);
+/* General adjustments for header H1 */
+/* Estilo general del h1 */
+header h1 {
+    position: relative;
+    font-size: 2em; /* Ajusta según sea necesario */
+    font-weight: bold; /* Ajusta según sea necesario */
+    color: transparent; /* Para que el texto original no se vea */
+    text-transform: uppercase; /* Opcional, si quieres todas las letras en mayúsculas */
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
 }
+
+/* Estilo para las letras individuales */
+header h1 span {
+    display: inline-block;
+    color: #fff; /* Color del texto */
+    text-shadow: 0 0 0 #fff;
+    animation: dash 1s cubic-bezier(.8, 0, .2, 1) forwards, 
+               stroke-width 1s cubic-bezier(.8, 0, .2, 1) 0.5s forwards, 
+               fade .2s linear 0.3s forwards;
+    opacity: 0; /* Empieza transparente */
+    position: relative;
+}
+
+/* Animación de dibujo */
+@keyframes dash {
+    0% {
+        clip-path: polygon(0 0, 0 100%, 0 100%, 0 0);
+    }
+    100% {
+        clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+    }
+}
+
+/* Animación de grosor de línea */
+@keyframes stroke-width {
+    0% {
+        text-shadow: 0 0 0 #fff;
+    }
+    100% {
+        text-shadow: 0 0 12px #fff;
+    }
+}
+
+/* Animación de desvanecimiento */
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
 
 header p {
     -webkit-mask: linear-gradient(to right, #fff 45%, transparent 55%) 0 0/220% 100% no-repeat;
@@ -178,6 +230,16 @@ main {
         --gap: 25px;
     }
 }
+.widgett {
+    --square-size: calc((((min(1280px, 100vw - 100px) - (60px * 11)) / 12) * 10 + (60px - var(--gap)) * 9) / 10); /* Ajusta el cálculo para hacer más ancho */
+    --c: min(var(--columns, 3), var(--template-columns)); /* Aumenta el número de columnas que ocupa */
+    --r: var(--rows, 2);
+    grid-row: span var(--r);
+    grid-column: span var(--c);
+    height: calc(var(--square-size) * var(--r) + var(--gap) * (var(--r) - 1));
+    color: #000;
+}
+
 
 .widget {
     --square-size: calc((((min(1280px, 100vw - 100px) - (60px * 11)) / 12) * 8 + (60px - var(--gap)) * 7) / 8);
@@ -286,15 +348,6 @@ main {
     }
 }
 
-#github {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    padding: 18px 24px;
-    width: 100%;
-    height: 100%;
-}
-
 #github .line {
     display: flex;
     align-items: center;
@@ -390,7 +443,7 @@ main {
 }
 
 #clock .face svg {
-    fill: #adf;
+    fill: rgb(250, 120, 255);
 }
 
 #hour-hand::before,
@@ -408,17 +461,17 @@ main {
 
 #hour-hand {
     --h: 30%;
-    --color: #36b;
+    --color: rgb(187, 51, 153);
 }
 
 #minute-hand {
     --h: 40%;
-    --color: #48d;
+    --color: rgb(221, 68, 201);
 }
 
 #second-hand {
     --h: 8%;
-    --color: #48d;
+    --color: rgb(221, 68, 196);
     transition: transform .2s;
 }
 
@@ -497,7 +550,7 @@ aside {
 }
 
 .project b {
-    color: #06b;
+    color: rgb(187, 0, 140);
     font-size: 1.1em;
 }
 
@@ -530,6 +583,192 @@ aside {
     border-radius: 50%;
     width: .6em;
     height: .6em;
+}
+
+
+/* Discord profile card */
+.profile {
+    background-color: #161616;
+    border-radius: 10px;
+    width: 320px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+}
+
+.banner {
+    width: 100%;
+    height: 180px;
+    position: relative;
+}
+
+.banner-img {
+    width: 100%;
+    height: auto;
+}
+
+.avatar-section {
+    position: absolute;
+    bottom: -40px;
+    left: 10px;
+    display: inline-block;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #131414;
+}
+
+.status {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(84, 207, 84);
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    border: 4px solid #131414;
+}
+
+.user-info {
+    color: #dfdfdf;
+    text-align: left;
+    margin-top: 40px;
+    padding: 0 20px;
+}
+
+.user-info h2 {
+    margin: 5px 0 0 0;
+    font-size: 24px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.name-badge-section {
+    font-size: 14px;
+    color: #dfdfdf;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 1px;
+}
+
+.badge-section {
+    padding: 2px;
+    border-radius: 5px;
+    background-color: #36393f;
+    display: inline-flex;
+    margin-left: 10px;
+}
+
+.badge {
+    width: 16px;
+    height: 16px;
+    background: url('badge.png') no-repeat center;
+    background-size: contain;
+}
+
+.activity {
+    display: flex;
+    margin-top: 10px;
+}
+
+.activity span {
+    display: flex;
+    align-items: left;
+    margin: 0 1px;
+}
+
+.activity .name {
+    color: #dfdfdf;
+    font-size: 11px;
+    margin-left: 45px;
+    text-align: center;
+}
+
+.activity .icons {
+    margin-left: 55px;
+    align-items: center;
+    justify-content: center;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 0 0.5px;
+}
+
+.red {
+    background-color: rgb(236, 58, 58);
+}
+
+.yellow {
+    background-color: rgb(245, 245, 102);
+}
+
+.green {
+    background-color: rgb(84, 207, 84);
+}
+
+.icons {
+    font-size: 12px;
+    display: flex;
+    margin-left: 10px;
+}
+
+.icons span {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.bio {
+    margin-top: 10px;
+}
+
+.view-bio {
+    font-size: 12px;
+    color: #8f8f8f;
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+}
+
+.actions {
+    padding: 20px;
+}
+
+.actions button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #29292b;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.actions button .circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: transparent;
+    margin-right: 10px;
+}
+
+.actions button:hover {
+    background-color: #242425;
+}
+
+.actions .online .circle {
+    background-color: rgb(84, 207, 84);
 }
 
 footer {
